@@ -731,7 +731,7 @@
                         <button id="show-missing-btn" class="question-mark">?</button>
                     </div>
                     <div id="missing-names-modal" class="modal" style="display: none;">
-                        <div class="modal-content">
+                        <div class="modal-content" >
                             <span class="close-btn">&times;</span>
                             <h3>Liste non pointes</h3>
                             <ul id="missing-names-list"></ul>
@@ -985,7 +985,7 @@ document.getElementById('customers-toggle').addEventListener('click', function()
                     uniqueGroups.add(row[2]);
                 }
 
-                if (!row[6] || row[6].trim() === '' || row[6].trim() !== 'FACE_40') {
+                if (!row[6] || row[6].trim() === '') {
     // إضافة كائن يحتوي على الاسم و FINCA
     missingNames.push({ name: row[1], finca: row[5],equipe: row[2],code: row[0] });
 }
@@ -1014,7 +1014,6 @@ document.getElementById('customers-toggle').addEventListener('click', function()
             downloadTableAsXLSX1(filteredData);
         });
     }
-
     function updateModal(names) {
     let namesList = document.getElementById('missing-names-list');
     namesList.innerHTML = '';
@@ -1027,93 +1026,191 @@ document.getElementById('customers-toggle').addEventListener('click', function()
         });
     } else {
         let li = document.createElement('li');
-        li.textContent = 'Rien   ';
+        li.textContent = 'Rien';
         namesList.appendChild(li);
     }
 
+    // العثور على الـ modal
+    let modal = document.getElementById('missing-names-modal');
+    let modalContent = modal.querySelector('.modal-content');
+
+    // إنشاء زر "Envoyer"
     let sendButton = document.createElement('button');
-    sendButton.textContent = 'envoyer';
-    sendButton.style.position = 'absolute';  
-    sendButton.style.top = '10px';      
-    sendButton.style.right = '10px';          
-    sendButton.style.transform = 'translateX(-50%)';  
-    sendButton.style.padding = '10px';
+    sendButton.textContent = 'Envoyer'; // النص الصحيح لزر الإرسال
+    sendButton.style.padding = '10px 15px';
     sendButton.style.backgroundColor = '#008cff';
     sendButton.style.color = 'white';
     sendButton.style.border = 'none';
     sendButton.style.borderRadius = '5px';
     sendButton.style.cursor = 'pointer';
-    sendButton.style.width = '25%';
-
+    sendButton.style.marginTop = '15px';
+    
+    
 
     sendButton.addEventListener('click', function () {
-        sendToTelegram(names);  
+        sendGroupedImages(names);
     });
 
-    document.getElementById('missing-names-modal').appendChild(sendButton);
-    namesList.appendChild(sendButton);
+  
+    let closeButton = document.createElement('button');
+    closeButton.textContent = 'annuler'; 
+    closeButton.style.padding = '10px 15px';
+    closeButton.style.backgroundColor = '#ff4d4d';
+    closeButton.style.color = 'white';
+    closeButton.style.border = 'none';
+    closeButton.style.borderRadius = '5px';
+    closeButton.style.cursor = 'pointer';
+    closeButton.style.marginTop = '15px';
+    closeButton.style.marginLeft = '15px';
+    closeButton.style.marginRight = '15px';
+    closeButton.style.width = '25%';
 
-    document.getElementById('missing-names-modal').style.display = 'block';
+    closeButton.addEventListener('click', function () {
+        modal.style.display = 'none';
+    });
+
+    modalContent.appendChild(sendButton);
+    modalContent.appendChild(closeButton);
+
+
+    modal.style.display = 'block';
 }
 
 
-function sendToTelegram(names) {
-    
+function sendGroupedImages(names) {
     const fincaGroups = {
-        'FINCA 1': '-1002408201424',
+        'FINCA 1': '2034427318',
         'FINCA 2': '-1002408201424',
-        'FINCA 3': '-1002408201424',  
-        'FINCA 4': '-1002408201424',
-        'FINCA 5': '-1002408201424',  
+        'FINCA 3': '-1002408201424',
+        'FINCA 4': '2034427318',
+        'FINCA 5': '-1002408201424',
         'FINCA 6': '-1002408201424',
-        'FINCA 8': '-1002408201424', 
+        'FINCA 8': '2034427318',
         'FINCA 9': '-1002408201424',
-        'FINCA 13': '-1002408201424',  
-        'FINCA 19': '-1002408201424', 
-        'FINCA 20': '-1002408201424', 
-        'FINCA 21': '-1002408201424', 
-        'FINCA 22': '-1002408201424', 
-
+        'FINCA 13': '2034427318',
+        'FINCA 19': '-1002408201424',
+        'FINCA 20': '2034427318',
+        'FINCA 21': '-1002408201424',
+        'FINCA 22': '-1002408201424',
     };
 
-    const promises = names.map(nameObj => {
-        const chatId = fincaGroups[nameObj.finca];
+    let fincaEquipes = {};
+
+  
+    names.forEach(({ finca, equipe, code, name }) => {
+        if (!fincaEquipes[finca]) fincaEquipes[finca] = {};
+        if (!fincaEquipes[finca][equipe]) fincaEquipes[finca][equipe] = [];
+        fincaEquipes[finca][equipe].push(`${code} - ${name}`);
+    });
+
+    let allPromises = [];
+    
+    Object.keys(fincaEquipes).forEach(finca => {
+        let chatId = fincaGroups[finca];
         if (chatId) {
-            const message = ` ${nameObj.code} ${nameObj.name}>>>> EQUIPE: ${nameObj.equipe}`;
-            return sendMessageToTelegram(chatId, message);
+            Object.keys(fincaEquipes[finca]).forEach(equipe => {
+                let members = fincaEquipes[finca][equipe];
+                allPromises.push(() =>
+                    createImage(finca, equipe, members)
+                        .then(imageBlob => sendImageToTelegram(chatId, imageBlob, `${finca}_${equipe}.png`))
+                        .catch(error => console.error('❌ Erreur lors de la création de image :', error))
+                );
+            });
         }
     });
 
-    Promise.all(promises)
-        .then(() => {
-            alert('Tous les messages ont été envoyés avec succès');
-        })
-        .catch(error => {
-            console.error('Error:', error);
-            alert('Une erreur s est produite lors de l envoi de certains messages');
-        });
+
+    sendBatches(allPromises, 10, 3000);
 }
 
-function sendMessageToTelegram(chatId, message) {
-    const token = '7561853556:AAElzI6FYzNb6yNUV6EA_Bnzkec2hUrcP70'; 
-    const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(message)}`;
 
-    return fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            if (data.ok) {
-                console.log('تم إرسال الرسالة إلى:', chatId);
+function createImage(finca, equipe, members) {
+    return new Promise((resolve, reject) => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        const width = 500;
+        const height = 100 + members.length * 30;
+        canvas.width = width;
+        canvas.height = height;
+
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.fillStyle = 'black';
+        ctx.font = 'bold 20px Arial';
+        ctx.fillText(`${finca} - ${equipe}`, 20, 30);
+
+        ctx.font = '16px Arial';
+        members.forEach((member, index) => {
+            ctx.fillText(member, 20, 60 + index * 30);
+        });
+
+        canvas.toBlob(blob => {
+            if (blob) {
+                resolve(blob);
             } else {
-                console.error('حدث خطأ في إرسال الرسالة إلى:', chatId);
+                reject('Erreur lors de la conversion de l image en Blob');
             }
-        })
-        .catch(error => {
-            console.error('Error in sending message:', error);
         });
+    });
 }
 
 
+function sendImageToTelegram(chatId, imageBlob, filename) {
+    const token = '7561853556:AAElzI6FYzNb6yNUV6EA_Bnzkec2hUrcP70';
+    let formData = new FormData();
+    formData.append('chat_id', chatId);
+    formData.append('photo', imageBlob, filename);
 
+    return fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            console.log(`✅ Images envoyée : ${filename} à ${chatId}`);
+        } else if (data.error_code === 429) {
+
+            const retryAfter = data.parameters.retry_after;
+            console.log(`❌ Erreur lors de l'envoi de l'image : ${filename}. Nous allons réessayer encore ${retryAfter} seconde.`);
+            return new Promise(resolve => setTimeout(resolve, retryAfter * 1000))
+                .then(() => sendImageToTelegram(chatId, imageBlob, filename)); 
+        } else {
+            console.error(`❌ Erreur lors de l'envoi de l'image : ${filename}`, data);
+        }
+    })
+    .catch(error => {
+        console.error('⚠️ Erreur lors de l envoi de l image :', error);
+    });
+}
+
+function sendBatches(tasks, batchSize, delay) {
+    let index = 0;
+
+    function sendNextBatch() {
+        if (index >= tasks.length) {
+            console.log('✅ Envoyé avec succès !');
+            return;
+        }
+
+        let batch = tasks.slice(index, index + batchSize);
+        index += batchSize;
+
+        Promise.all(batch.map(task => task()))
+            .then(() => {
+                console.log(`✅ Envoyé avec succès !(${index}/${tasks.length})`);
+                setTimeout(sendNextBatch, delay);
+            })
+            .catch(error => {
+                console.error('❌ Erreur lors de l envoi group :', error);
+                setTimeout(sendNextBatch, delay);
+            });
+    }
+
+    sendNextBatch();
+}
 
     document.querySelector('.close-btn').addEventListener('click', function () {
         document.getElementById('missing-names-modal').style.display = 'none';
@@ -1215,9 +1312,9 @@ function displayData1(data) {
     tableBody.innerHTML = ''; 
     let uniquetache = new Set();
     
-    const filteredData = data.slice(1).filter(row => row[1] === 'FINCA 20');  
+    const filteredData = data
 
-    filteredData.forEach(row => {
+    filteredData.slice(1).forEach(row => {
         if (row.some(cell => cell && typeof cell === 'string' && cell.trim() !== "")) {
             let tr = document.createElement('tr');
             row.forEach((cell, index) => {
