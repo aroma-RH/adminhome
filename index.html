@@ -590,6 +590,39 @@
     border: 1px solid #ddd;
 }
 
+/* Style for the Search Input */
+#searchInput1,#searchInput {
+    padding: 10px 15px;
+    font-size: 16px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    width: 100%;
+    max-width: 400px; /* Max width for better responsiveness */
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Focused input effect */
+#searchInput1:focus,#searchInput1:focus {
+    border-color: #3498db;
+    outline: none;
+    box-shadow: 0 0 5px rgba(52, 152, 219, 0.7);
+}
+
+/* Placeholder styling */
+#searchInput1::placeholder,#searchInput1::placeholder {
+    color: #aaa;
+    font-style: italic;
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+    #searchInput1,#searchInput1 {
+        width: 100%; /* Ensures full width on smaller screens */
+    }
+}
+
+
     </style>
 </head>
 <body>
@@ -774,6 +807,7 @@
                     <div class="data-table">
                         <div class="table-header">
                             <h2>SUIVI DE EFFECTIF</h2>
+                            <input type="text" id="searchInput" onkeyup="searchTableeffectif()" placeholder="..">
                             <button id="download-btn">
                                 <i class="fas fa-download"></i>
                             </button>
@@ -804,7 +838,8 @@
           
                     <div class="data-table">
                         <div class="table-header">
-                        <h2>SUIVI DE PONTAGE</h2>
+                            <h2>SUIVI DE PONTAGE</h2>
+                            <input type="text" id="searchInput1" onkeyup="searchTablepointage()" placeholder="Search for employees..." />
                             <button id="download-btn1">
                                 <i class="fas fa-download"></i>
                             </button>
@@ -824,12 +859,12 @@
                                     </tr>
                                 </thead>
                                 <tbody id="table-body">
-                                    <!--ا table poinatge-->
+                                    <!-- Table data will go here -->
                                 </tbody>
                             </table>
-                            
                         </div>
                     </div>
+                    
                 </div>
             </div>
         </main>
@@ -876,6 +911,99 @@ document.getElementById('customers-toggle').addEventListener('click', function()
             });
         });
 
+
+        function searchTablepointage() {
+    let input = document.getElementById("searchInput1");
+    let filter = input.value.toLowerCase();
+    let table = document.getElementById("table-body");
+    let tr = table.getElementsByTagName("tr");
+
+    let visibleRows = 0;
+    let totalHours = 0;
+    let missingContractCount = 0;
+    let nonEmptyColumn7Count = 0;
+    let uniqueGroups = new Set();
+
+    for (let i = 0; i < tr.length; i++) {
+        let td = tr[i].getElementsByTagName("td");
+        let rowContainsFilter = false;
+
+        // Check if row contains the filter text
+        for (let j = 0; j < td.length; j++) {
+            if (td[j].textContent.toLowerCase().includes(filter)) {
+                rowContainsFilter = true;
+                break;
+            }
+        }
+
+        // Show or hide the row based on the filter
+        if (rowContainsFilter) {
+            tr[i].style.display = "";
+            visibleRows++;
+
+            // Calculate total hours (assuming it's in the 4th column)
+            const value = parseFloat(td[3].textContent); // Hours are in the 4th column (index 3)
+            if (!isNaN(value)) {
+                totalHours += value;
+            }
+
+            // Count missing contracts (assuming it's in the 8th column)
+            if (td[7] && td[7].textContent.trim() !== '') {
+                missingContractCount++;
+            }
+
+            // Count rows with non-empty data in column 7
+            if (td[6] && td[6].textContent.trim() !== '') {
+                nonEmptyColumn7Count++;
+            }
+
+            // Add unique groups (assuming it's in the 3rd column)
+            if (td[2] && td[2].textContent.trim() !== "") {
+                uniqueGroups.add(td[2].textContent.trim());
+            }
+        } else {
+            tr[i].style.display = "none";
+        }
+    }
+
+    // Update statistics
+    document.getElementById("totalEmployees").textContent = visibleRows;
+    document.getElementById("totalHours").textContent = totalHours.toFixed(2);
+
+    let missingContractPercentage = (missingContractCount / visibleRows) * 100;
+    if (isNaN(missingContractPercentage)) missingContractPercentage = 0;
+    document.getElementById("missingContract").textContent = missingContractCount;
+    document.getElementById("missingContractPercentage").textContent = missingContractPercentage.toFixed(2) + '%';
+
+    let nonEmptyColumn7Percentage = (nonEmptyColumn7Count / visibleRows) * 100;
+    if (isNaN(nonEmptyColumn7Percentage)) nonEmptyColumn7Percentage = 0;
+    document.getElementById("nonEmptyColumn7").textContent = nonEmptyColumn7Count;
+    document.getElementById("nonContractPercentage").textContent = nonEmptyColumn7Percentage.toFixed(2) + '%';
+
+    document.getElementById("totalEquipe").textContent = uniqueGroups.size;
+}
+
+
+function searchTableeffectif() {
+    let input = document.getElementById("searchInput");
+    let filter = input.value.toLowerCase();
+    let table = document.getElementById("table-body2");
+    let tr = table.getElementsByTagName("tr");
+
+    for (let i = 0; i < tr.length; i++) { 
+        let td = tr[i].getElementsByTagName("td");
+        let rowContainsFilter = false;
+
+        for (let j = 0; j < td.length; j++) {
+            if (td[j].textContent.toLowerCase().includes(filter)) {
+                rowContainsFilter = true;
+                break;
+            }
+        }
+
+        tr[i].style.display = rowContainsFilter ? "" : "none";
+    }
+}
 
 
         function toggleSidebar() {
