@@ -807,7 +807,7 @@
                     <div class="data-table">
                         <div class="table-header">
                             <h2>SUIVI DE EFFECTIF</h2>
-                            <input type="text" id="searchInput" onkeyup="searchTableeffectif()" placeholder="..">
+                            <input type="text" id="searchInput" onkeyup="searchTableeffectif()" placeholder="Rechercher ici .....">
                             <button id="download-btn">
                                 <i class="fas fa-download"></i>
                             </button>
@@ -839,7 +839,7 @@
                     <div class="data-table">
                         <div class="table-header">
                             <h2>SUIVI DE PONTAGE</h2>
-                            <input type="text" id="searchInput1" onkeyup="searchTablepointage()" placeholder="Search for employees..." />
+                            <input type="text" id="searchInput1" onkeyup="searchTablepointage()" placeholder="Rechercher ici ....." />
                             <button id="download-btn1">
                                 <i class="fas fa-download"></i>
                             </button>
@@ -948,7 +948,7 @@ document.getElementById('customers-toggle').addEventListener('click', function()
             }
 
             // Count missing contracts (assuming it's in the 8th column)
-            if (td[7] && td[7].textContent.trim() !== '') {
+            if (td[6] && td[6].textContent.trim() !== '') {
                 missingContractCount++;
             }
 
@@ -1039,13 +1039,9 @@ function searchTableeffectif() {
             if (row.some(cell => cell && typeof cell === 'string' && cell.trim() !== "")) {
                 let tr = document.createElement('tr');
 
-                if (row[6] && row[6].trim().toLowerCase() === 'FACE_40') {
-                    tr.cells[6] && (tr.cells[6].style.backgroundColor = 'yellow');
-                }
+                
 
-                if (row[7] && row[7].trim() !== '') {
-                    tr.style.backgroundColor = 'orange';
-                }
+                
 
                 row.forEach((cell, index) => {
                     let td = document.createElement('td');
@@ -1053,7 +1049,7 @@ function searchTableeffectif() {
                     if (index === 4 && cell) {
                         td.textContent = formatDate(cell); 
                     } else {
-                        td.textContent = cell || '-'; 
+                        td.textContent = cell || ''; 
                     }
                     
                     if (index === 7 && cell && cell.trim() === 'NON') {
@@ -1158,30 +1154,33 @@ function searchTableeffectif() {
         namesList.appendChild(li);
     }
 
-    // العثور على الـ modal
+  
     let modal = document.getElementById('missing-names-modal');
     let modalContent = modal.querySelector('.modal-content');
 
-    // إنشاء زر "Envoyer"
+    
+    let oldButtons = modalContent.querySelectorAll('button');
+    oldButtons.forEach(button => button.remove());
+
+   
     let sendButton = document.createElement('button');
-    sendButton.textContent = 'Envoyer'; // النص الصحيح لزر الإرسال
+    sendButton.textContent = 'Envoyer';
     sendButton.style.padding = '10px 15px';
-    sendButton.style.backgroundColor = '#008cff';
+    sendButton.style.backgroundColor = 'rgb(14 69 62)';
     sendButton.style.color = 'white';
     sendButton.style.border = 'none';
     sendButton.style.borderRadius = '5px';
     sendButton.style.cursor = 'pointer';
     sendButton.style.marginTop = '15px';
-    
-    
+    sendButton.style.width = '45%';
 
     sendButton.addEventListener('click', function () {
         sendGroupedImages(names);
     });
 
-  
+
     let closeButton = document.createElement('button');
-    closeButton.textContent = 'annuler'; 
+    closeButton.textContent = 'Annuler';
     closeButton.style.padding = '10px 15px';
     closeButton.style.backgroundColor = '#ff4d4d';
     closeButton.style.color = 'white';
@@ -1191,15 +1190,15 @@ function searchTableeffectif() {
     closeButton.style.marginTop = '15px';
     closeButton.style.marginLeft = '15px';
     closeButton.style.marginRight = '15px';
-    closeButton.style.width = '25%';
+    closeButton.style.width = '45%';
 
     closeButton.addEventListener('click', function () {
         modal.style.display = 'none';
     });
 
+
     modalContent.appendChild(sendButton);
     modalContent.appendChild(closeButton);
-
 
     modal.style.display = 'block';
 }
