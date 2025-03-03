@@ -111,10 +111,10 @@
         .main-content {
             flex: 1;
             padding: 10px;
-            background-color: #ffffff; /* Light background for the main content */
+            background-color: #ffffff;
             box-shadow: inset 0px 0px 12px rgba(0, 0, 0, 0.1);
             border-radius: 1rem;
-            margin-left: 260px; /* Ensure main content is pushed to the right */
+            margin-left: 260px; 
             transition: margin-left 0.3s ease;
         }
 
@@ -148,6 +148,22 @@
         }
 
         .stats-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .statsbtn {
+            background-color: rgb(0, 121, 107);
+            border-radius: 1rem;
+            padding: 1rem;
+            font-size: 1rem;
+            color: #ffffff;
+            font-weight: 400;
+            box-shadow: 0px 2px 15px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .statsbtn:hover {
             transform: translateY(-5px);
             box-shadow: 0px 5px 25px rgba(0, 0, 0, 0.15);
         }
@@ -415,8 +431,8 @@
         }
 
         #download-btn:hover {
-            transform: scale(1.1);  /* Slightly enlarge the button on hover */
-            background-color: #45a049; /* Darker green on hover */
+            transform: scale(1.1);  
+            background-color: #45a049; 
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
 
@@ -436,8 +452,8 @@
         }
 
         #download-btn1:hover {
-            transform: scale(1.1);  /* Slightly enlarge the button on hover */
-            background-color: #45a049; /* Darker green on hover */
+            transform: scale(1.1);  
+            background-color: #45a049; 
             box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2);
         }
 
@@ -446,12 +462,12 @@
         }
 
         .table-container table th {
-  background-color: #004d40; /* لون أخضر غامق */
+  background-color: #004d40; 
   color: white;
 }
 
 .table-container table td {
-  background-color: #e0f2f1; /* لون أخضر فاتح */
+  background-color: #e0f2f1; 
   color: #000;
 }
 
@@ -480,7 +496,7 @@
 }
 
 .modal {
-    display: none; /* Hidden by default */
+    display: none; 
     position: fixed;
     z-index: 1;
     left: 0;
@@ -488,11 +504,11 @@
     width: 100%;
     height: 100%;
     overflow: auto;
-    background-color: rgba(0, 0, 0, 0.4); /* Background with opacity */
+    background-color: rgba(0, 0, 0, 0.4); 
     transition: opacity 0.3s ease;
 }
 
-/* Modal content */
+
 .modal-content {
     position: relative;
     background-color: #fff;
@@ -506,7 +522,7 @@
     transition: transform 0.3s ease-in-out;
 }
 
-/* Close button */
+
 .close-btn {
     color: #5f5454;
     font-size: 28px;
@@ -517,7 +533,7 @@
     cursor: pointer;
 }
 
-/* Close button hover effect */
+
 .close-btn:hover,
 .close-btn:focus {
     color: black;
@@ -525,10 +541,10 @@
     cursor: pointer;
 }
 
-/* Scrollable list */
+
 #missing-names-list {
-    max-height: 300px; /* Adjust based on desired max height */
-    overflow-y: auto; /* Enables vertical scrolling */
+    max-height: 300px; 
+    overflow-y: auto;
     padding-right: 10px;
     list-style: none;
     margin: 0;
@@ -536,7 +552,7 @@
     border-top: 1px solid #ddd;
 }
 
-/* List items */
+
 #missing-names-list li {
     padding: 8px;
     background-color: rgb(0, 121, 107);
@@ -551,7 +567,7 @@
     background-color: rgb(9, 202, 180);
 }
 
-/* Button styling */
+
 #show-missing-btn {
     background-color: #ffa600;
     color: rgb(255, 254, 254);
@@ -563,6 +579,8 @@
     cursor: pointer;
     transition: background-color 0.3s ease;
 }
+
+
 
 #show-missing-btn:hover {
     background-color: #e7c2a0;
@@ -590,38 +608,37 @@
     border: 1px solid #ddd;
 }
 
-/* Style for the Search Input */
+
 #searchInput1,#searchInput {
     padding: 10px 15px;
     font-size: 16px;
     border: 2px solid #ccc;
     border-radius: 5px;
     width: 100%;
-    max-width: 400px; /* Max width for better responsiveness */
+    max-width: 400px;
     box-sizing: border-box;
     transition: border-color 0.3s ease, box-shadow 0.3s ease;
 }
 
-/* Focused input effect */
+
 #searchInput1:focus,#searchInput1:focus {
     border-color: #3498db;
     outline: none;
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.7);
 }
 
-/* Placeholder styling */
+
 #searchInput1::placeholder,#searchInput1::placeholder {
     color: #aaa;
     font-style: italic;
 }
 
-/* Responsive for mobile */
+
 @media (max-width: 768px) {
     #searchInput1,#searchInput1 {
-        width: 100%; /* Ensures full width on smaller screens */
+        width: 100%; 
     }
 }
-
 
     </style>
 </head>
@@ -795,13 +812,9 @@
                         </div>
                         <div class="stats-value" id="totaltache">0</div>
                     </div>
+                    <button class="statsbtn"  onclick="showStatistics()">Statistique des contrats </button>
                 </div>
 
-                
-            
-                
-                    
-                
                 <!-- Tables Section -->
                 <div class="tables-section">
                     <div class="data-table">
@@ -859,7 +872,7 @@
                                     </tr>
                                 </thead>
                                 <tbody id="table-body">
-                                    <!-- Table data will go here -->
+                                    <!-- pointage -->
                                 </tbody>
                             </table>
                         </div>
@@ -928,7 +941,6 @@ document.getElementById('customers-toggle').addEventListener('click', function()
         let td = tr[i].getElementsByTagName("td");
         let rowContainsFilter = false;
 
-        // Check if row contains the filter text
         for (let j = 0; j < td.length; j++) {
             if (td[j].textContent.toLowerCase().includes(filter)) {
                 rowContainsFilter = true;
@@ -936,28 +948,24 @@ document.getElementById('customers-toggle').addEventListener('click', function()
             }
         }
 
-        // Show or hide the row based on the filter
         if (rowContainsFilter) {
             tr[i].style.display = "";
             visibleRows++;
 
-            // Calculate total hours (assuming it's in the 4th column)
-            const value = parseFloat(td[3].textContent); // Hours are in the 4th column (index 3)
+            const value = parseFloat(td[3].textContent); 
             if (!isNaN(value)) {
                 totalHours += value;
             }
 
-            // Count missing contracts (assuming it's in the 8th column)
             if (td[6] && td[6].textContent.trim() !== '') {
                 missingContractCount++;
             }
 
-            // Count rows with non-empty data in column 7
             if (td[6] && td[6].textContent.trim() !== '') {
                 nonEmptyColumn7Count++;
             }
 
-            // Add unique groups (assuming it's in the 3rd column)
+           
             if (td[2] && td[2].textContent.trim() !== "") {
                 uniqueGroups.add(td[2].textContent.trim());
             }
@@ -1110,7 +1118,7 @@ function searchTableeffectif() {
                 }
 
                 if (!row[6] || row[6].trim() === '') {
-    // إضافة كائن يحتوي على الاسم و FINCA
+   
     missingNames.push({ name: row[1], finca: row[5],equipe: row[2],code: row[0] });
 }
             }
@@ -1506,10 +1514,41 @@ function downloadTableAsXLSX1(data, fileName = "POINTAGE.xlsx") {
     }
 }
 
+let groupCounts = {}; 
+        let totalWorkers = 0; 
 
+        
+        fetch("https://script.google.com/macros/s/AKfycbyQn5_QevlEOIt31TZrCgVsiWGHoLBZUHRPs1pFgLx4Qqm0nthi51w4SJ5QhAfQhGc/exec")
+        .then(response => response.json())
+        .then(data => {
+            totalWorkers = data.length;
+            
+        
+            data.forEach(row => {
+                let group = row[3]; 
+                
+                if (group) {
+                    groupCounts[group] = (groupCounts[group] || 0) + 1;
+                }
+            });
+        })
+        .catch(error => console.error("errour", error));
 
+        function showStatistics() {
+            let message = `📊 Statistiques des contrats :\n\n`;
+            message += `👥 total actuel de travailleurs : ${totalWorkers} prs \n\n`;
 
+           
+            let sortedGroups = Object.entries(groupCounts).sort((a, b) => b[1] - a[1]);
 
+            sortedGroups.forEach(([group, count]) => {
+                let percentage = ((count / totalWorkers) * 100).toFixed(2);
+                message += `🟢 ${group}: ${count} prs (${percentage}%)\n`;
+            });
+
+            alert(message);
+        }
+        
 
 window.addEventListener("load", () => {
     fetchData(); 
