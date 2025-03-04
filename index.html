@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1214,19 +1215,19 @@ function searchTableeffectif() {
 
 function sendGroupedImages(names) {
     const fincaGroups = {
-        'FINCA 1': '2034427318',
-        'FINCA 2': '-1002408201424',
-        'FINCA 3': '-1002408201424',
-        'FINCA 4': '2034427318',
-        'FINCA 5': '-1002408201424',
-        'FINCA 6': '-1002408201424',
-        'FINCA 8': '2034427318',
-        'FINCA 9': '-1002408201424',
-        'FINCA 13': '2034427318',
-        'FINCA 19': '-1002408201424',
-        'FINCA 20': '2034427318',
-        'FINCA 21': '-1002408201424',
-        'FINCA 22': '-1002408201424',
+        'FINCA 1': '-1002327755334',
+        'FINCA 2': '-1002358017778',
+        'FINCA 3': '-1002416966397',
+        'FINCA 4': '-1002285801489',
+        'FINCA 5': '-1002489688534',
+        'FINCA 6': '-1002476590686',
+        'FINCA 8': '-1002260953998',
+        'FINCA 9': '-1002475788980',
+        'FINCA 13': '-1001446782960',
+        'FINCA 19': '-1002402249339',
+        'FINCA 20': '-1001810476007',
+        'FINCA 21': '-1002489688534',
+        'FINCA 22': '-1002432973597',
     };
 
     let fincaEquipes = {};
@@ -1248,7 +1249,7 @@ function sendGroupedImages(names) {
                 allPromises.push(() =>
                     createImage(finca, equipe, members)
                         .then(imageBlob => sendImageToTelegram(chatId, imageBlob, `${finca}_${equipe}.png`))
-                        .catch(error => console.error('❌ Erreur lors de la création de image :', error))
+                        .catch(error => console.error('❌ Erreur lors de la création de image :', error))
                 );
             });
         }
@@ -1293,7 +1294,7 @@ function createImage(finca, equipe, members) {
 
 
 function sendImageToTelegram(chatId, imageBlob, filename) {
-    const token = '7561853556:AAElzI6FYzNb6yNUV6EA_Bnzkec2hUrcP70';
+    const token = '8080250852:AAHu1ZblRCKSI9QjmhrqnIurwIWXNzkTSBU';
     let formData = new FormData();
     formData.append('chat_id', chatId);
     formData.append('photo', imageBlob, filename);
@@ -1305,19 +1306,19 @@ function sendImageToTelegram(chatId, imageBlob, filename) {
     .then(response => response.json())
     .then(data => {
         if (data.ok) {
-            console.log(`✅ Images envoyée : ${filename} à ${chatId}`);
+            console.log(`✅ Images envoyée : ${filename} à ${chatId}`);
         } else if (data.error_code === 429) {
 
             const retryAfter = data.parameters.retry_after;
-            console.log(`❌ Erreur lors de l'envoi de l'image : ${filename}. Nous allons réessayer encore ${retryAfter} seconde.`);
+            console.log(`❌ Erreur lors de l'envoi de l'image : ${filename}. Nous allons réessayer encore ${retryAfter} seconde.`);
             return new Promise(resolve => setTimeout(resolve, retryAfter * 1000))
                 .then(() => sendImageToTelegram(chatId, imageBlob, filename)); 
         } else {
-            console.error(`❌ Erreur lors de l'envoi de l'image : ${filename}`, data);
+            console.error(`❌ Erreur lors de l'envoi de l'image : ${filename}`, data);
         }
     })
     .catch(error => {
-        console.error('⚠️ Erreur lors de l envoi de l image :', error);
+        console.error('⚠️ Erreur lors de l envoi de l image :', error);
     });
 }
 
@@ -1339,7 +1340,7 @@ function sendBatches(tasks, batchSize, delay) {
                 setTimeout(sendNextBatch, delay);
             })
             .catch(error => {
-                console.error('❌ Erreur lors de l envoi group :', error);
+                console.error('❌ Erreur lors de l envoi group :', error);
                 setTimeout(sendNextBatch, delay);
             });
     }
@@ -1535,8 +1536,8 @@ let groupCounts = {};
         .catch(error => console.error("errour", error));
 
         function showStatistics() {
-            let message = `📊 Statistiques des contrats :\n\n`;
-            message += `👥 total actuel de travailleurs : ${totalWorkers} prs \n\n`;
+            let message = `📊 Statistiques des contrats :\n\n`;
+            message += `👥 total actuel de travailleurs : ${totalWorkers} prs \n\n`;
 
            
             let sortedGroups = Object.entries(groupCounts).sort((a, b) => b[1] - a[1]);
