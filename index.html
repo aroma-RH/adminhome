@@ -1522,7 +1522,7 @@ let groupCounts = {};
         fetch("https://script.google.com/macros/s/AKfycbyQn5_QevlEOIt31TZrCgVsiWGHoLBZUHRPs1pFgLx4Qqm0nthi51w4SJ5QhAfQhGc/exec")
         .then(response => response.json())
         .then(data => {
-            totalWorkers = data.length;
+            totalWorkers = data.filter(row => row[3]).length;
             
         
             data.forEach(row => {
