@@ -814,6 +814,8 @@
                         <div class="stats-value" id="totaltache">0</div>
                     </div>
                     <button class="statsbtn"  onclick="showStatistics()">Statistique des contrats </button>
+                    <button class="statsbtn"  onclick="showStatisticsjJ()">Statistique des transport </button>
+                    
                 </div>
 
                 <!-- Tables Section -->
@@ -1515,41 +1517,115 @@ function downloadTableAsXLSX1(data, fileName = "POINTAGE.xlsx") {
     }
 }
 
-let groupCounts = {}; 
-        let totalWorkers = 0; 
+let groupCounts = {};
+let totalWorkers = 0;
+let groupCountsj = {};
+let totalWorkersj = 0;
 
+
+fetch("https://script.google.com/macros/s/AKfycbwk4unhrG7fwjgrec_O9PEit4kcC9kFsX9WhpL5L54HkOMZzPory7zDoR3_qZ-dNoilQw/exec")
+    .then(response => response.json())
+    .then(data => {
+        let filteredData = data.filter(row => row[11] === "CAMPO"); 
+        totalWorkers = filteredData.length;
+
+        filteredData.forEach(row => {
+            let group = row[7]; 
+            if (group) {
+                groupCounts[group] = (groupCounts[group] || 0) + 1;
+            }
+        });
+
+      
+        return fetch("https://script.google.com/macros/s/AKfycbwqL3JfKP4vFDp1Otp6drwO549d_8KDu5jXEB5jR_4IZjF96LI8jl3OggtMJp7yPBFcZg/exec");
+    })
+    .then(response => response.json())
+    .then(data => {
+        totalWorkersj = data.filter(row => row[8]).length;
+
+        data.forEach(row => {
+            let group1 = row[8]; 
+            if (group1) {
+                groupCountsj[group1] = (groupCountsj[group1] || 0) + 1;
+            }
+        });
+
+      
         
-        fetch("https://script.google.com/macros/s/AKfycbyQn5_QevlEOIt31TZrCgVsiWGHoLBZUHRPs1pFgLx4Qqm0nthi51w4SJ5QhAfQhGc/exec")
-        .then(response => response.json())
-        .then(data => {
-            totalWorkers = data.filter(row => row[3]).length;
-            
-        
-            data.forEach(row => {
-                let group = row[3]; 
-                
-                if (group) {
-                    groupCounts[group] = (groupCounts[group] || 0) + 1;
-                }
-            });
-        })
-        .catch(error => console.error("errour", error));
+    })
+    .catch(error => console.error("Erreur", error));
 
-        function showStatistics() {
-            let message = `📊 Statistiques des contrats :\n\n`;
-            message += `👥 total actuel de travailleurs : ${totalWorkers} prs \n\n`;
+function showStatistics() {
+    let message = `📊 Statistiques des contrats :\n\n`;
+    message += `👥 Total travailleurs (CAMPO) : ${totalWorkers} prs \n`;
+    message += `👥 Total travailleurs aujourd'hui (CAMPO) : ${totalWorkersj} prs \n\n`;
 
-           
-            let sortedGroups = Object.entries(groupCounts).sort((a, b) => b[1] - a[1]);
+    let allGroups = new Set([...Object.keys(groupCounts), ...Object.keys(groupCountsj)]); 
 
-            sortedGroups.forEach(([group, count]) => {
-                let percentage = ((count / totalWorkers) * 100).toFixed(2);
-                message += `🟢 ${group}: ${count} prs (${percentage}%)\n`;
-            });
+    allGroups.forEach(group => {
+        let count1 = groupCounts[group] || 0;
+        let count2 = groupCountsj[group] || 0;
 
-            alert(message);
+        let percentage1 = totalWorkers ? ((count1 / totalWorkers) * 100).toFixed(0) : "0";
+        let percentage2 = totalWorkersj ? ((count2 / totalWorkersj) * 100).toFixed(0) : "0";
+
+        message += `🟢 ${group}: ${count1} prs (${percentage1}%) | aujourd'hui 2: ${count2} prs (${percentage2}%)\n`;
+    });
+
+    alert(message);
+}
+
+let randomGroupCount = {}; 
+let randomTotalWorkers = 0;  
+let emptyCount = 0; 
+
+fetch("https://script.google.com/macros/s/AKfycbwk4unhrG7fwjgrec_O9PEit4kcC9kFsX9WhpL5L54HkOMZzPory7zDoR3_qZ-dNoilQw/exec")
+    .then(response => response.json())
+    .then(data => {
+        if (!data || data.length === 0) {
+            alert("Aucune donnée disponible.");
+            return;
         }
+
+       
+        randomTotalWorkers = data.length;  
+
+
+        data.forEach(row => {
+            let randomGroup1 = row[15]; 
+            if (randomGroup1) {
+                randomGroupCount[randomGroup1] = (randomGroupCount[randomGroup1] || 0) + 1;
+            } else {
+                emptyCount++; 
+            }
+        });
+
         
+        
+    })
+    .catch(error => console.error("Erreur lors de la récupération des données :", error));
+
+function showStatisticsjJ() {
+    let message1 = `📊 Statistiques trannsport :\n\n`;
+    message1 += `👥 Total actuel de travailleurs : ${randomTotalWorkers} prs\n\n`;
+
+   
+    let sortedGroups1 = Object.entries(randomGroupCount).sort((a, b) => b[1] - a[1]);
+
+  
+    sortedGroups1.forEach(([randomGroup1, count1]) => {
+        let percentage1 = ((count1 / randomTotalWorkers) * 100).toFixed(2);
+        message1 += `🟢 ${randomGroup1}: ${count1} prs (${percentage1}%)\n`;
+    });
+
+    if (emptyCount > 0) {
+        let percentageEmpty = ((emptyCount / randomTotalWorkers) * 100).toFixed(2);
+        message1 += `🔴 Other : ${emptyCount} prs (${percentageEmpty}%)\n`;
+    }
+
+    alert(message1);
+}
+
 
 window.addEventListener("load", () => {
     fetchData(); 
