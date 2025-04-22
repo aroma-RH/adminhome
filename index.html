@@ -111,7 +111,7 @@
         /* Main Content */
         .main-content {
             flex: 1;
-            padding: 10px;
+            padding: 5px;
             background-color: #ffffff;
             box-shadow: inset 0px 0px 12px rgba(0, 0, 0, 0.1);
             border-radius: 1rem;
@@ -260,7 +260,7 @@
             color: #ffffff;
             background-color: rgb(3, 90, 80);
         }
-
+      
         td {
             padding: 1rem;
             color: #ffffff;
@@ -271,7 +271,17 @@
         tr:hover td {
             background-color: rgb(160, 201, 196);
         }
+        .EFFEC {
+            display: flex;
+            background-color: rgb(0, 121, 107);
+            border-radius: 5px;
+            padding: 8px;
+            margin: 2px;
+            color: #ccc;
+            font-weight: 600;
 
+           
+        }
         /* Sidebar Toggle for Mobile */
         .sidebar-toggle {
             font-size: 2.5rem;
@@ -280,6 +290,8 @@
             color: rgb(0, 121, 107);
             cursor: pointer;
             display: none;
+            width: 1%;
+            height: 1%;
         }
 
         
@@ -492,7 +504,27 @@
 }
 
 .question-mark:hover {
-    background-color: #C70039;
+    background-color: #ffa600;
+    box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+}
+
+.question-mark1 {
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: none;
+    background-color: #FF5733;
+    color: rgb(253, 0, 0);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    margin-top: 10px;
+}
+
+.question-mark1:hover {
+    background-color: #ffa600;
     box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
 }
 
@@ -509,6 +541,21 @@
     transition: opacity 0.3s ease;
 }
 
+.modalaa {
+    display: none; 
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4); 
+    transition: opacity 0.3s ease;
+}
+
+
+
 
 .modal-content {
     position: relative;
@@ -521,6 +568,25 @@
     max-width: 500px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     transition: transform 0.3s ease-in-out;
+    max-height: 80vh;
+      overflow-y: auto;
+}
+
+
+
+.modal-contentaa {
+    position: relative;
+    background-color: #fff;
+    margin: 10% auto;
+    padding: 20px;
+    color: #000;
+    border-radius: 10px;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease-in-out;
+    max-height: 80vh;
+      overflow-y: auto;
 }
 
 
@@ -537,6 +603,24 @@
 
 .close-btn:hover,
 .close-btn:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.close-btna {
+    color: #5f5454;
+    font-size: 28px;
+    font-weight: bold;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    cursor: pointer;
+}
+
+
+.close-btna:hover,
+.close-btna:focus {
     color: black;
     text-decoration: none;
     cursor: pointer;
@@ -569,6 +653,35 @@
 }
 
 
+#missing-names-lista {
+    max-height: 300px; 
+    overflow-y: auto;
+    padding-right: 10px;
+    list-style: none;
+    margin: 0;
+    padding: 10px 0;
+    border-top: 1px solid #ddd;
+}
+
+
+#missing-names-lista li {
+    padding: 8px;
+    background-color: rgb(0, 121, 107);
+    color: #ffffff;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s ease;
+}
+
+#missing-names-lista li:hover {
+    background-color: rgb(9, 202, 180);
+}
+
+
+
+
+
 #show-missing-btn {
     background-color: #ffa600;
     color: rgb(255, 254, 254);
@@ -588,13 +701,16 @@
 }
 
 .data-table {
-    max-height: 500px; 
-    overflow-y: auto;  
+
     margin-bottom: 20px; 
 }
 
 .table-container {
-    max-height: 400px; 
+    
+    max-height: 800px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    transition: all 0.3s ease;
     overflow-y: auto; 
 }
 
@@ -608,9 +724,31 @@
     text-align: left;
     border: 1px solid #ddd;
 }
+.data-table1 th, .data-table1 td {
+    padding: 10px;
+    text-align: left;
+    border: 1px solid #ddd;
+}
+.data-table1 table {
+    width: 100%;
+    border-collapse: collapse;
+}
+.data-table1 {
+    
+    max-height: 800px;
+    overflow-y: auto;
+    margin-bottom: 20px;
+    transition: all 0.3s ease; /* Added smooth transition */
+}
+
+/* Optional: Add a class for when the table is shown */
+.data-table1.show {
+    display: block;
+}
 
 
-#searchInput1,#searchInput {
+
+#searchInput1,#searchInput12,#searchInput,#searchInput2 {
     padding: 10px 15px;
     font-size: 16px;
     border: 2px solid #ccc;
@@ -622,25 +760,68 @@
 }
 
 
-#searchInput1:focus,#searchInput1:focus {
+#searchInput1:focus,#searchInput12:focus,#searchInput:focus,#searchInput2:focus {
     border-color: #3498db;
     outline: none;
     box-shadow: 0 0 5px rgba(52, 152, 219, 0.7);
 }
 
 
-#searchInput1::placeholder,#searchInput1::placeholder {
+#searchInput1::placeholder,#searchInput12::placeholder,#searchInput::placeholder,#searchInput2::placeholder {
     color: #aaa;
     font-style: italic;
 }
 
 
 @media (max-width: 768px) {
-    #searchInput1,#searchInput1 {
+    #searchInput1,#searchInput12,#searchInput,#searchInput2 {
         width: 100%; 
     }
 }
+.farm-row {
+      padding: 10px;
+      margin: 5px 0;
+      background-color: rgb(0, 121, 107);;
+      border-radius: 8px;
+      
+      justify-content: space-between;
+      font-size: 16px;
+      font-weight: 500;
+      color: #ffffff;
+      transition: background-color 0.3s ease;;
+    }
+    .modal1 {
+      display: none;
+      position: fixed;
+      z-index: 9999;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0,0,0,0.6);
+      justify-content: center;
+      align-items: center;
+    }
 
+    .modal-content1 {
+      background: #ffffff;
+      padding: 30px;
+      width: 90%;
+      max-width: 600px;
+      border-radius: 15px;
+      position: relative;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+      max-height: 50vh;
+      overflow-y: auto;
+    }
+
+
+
+    .modal-content1 h3 {
+      margin-top: 0;
+      color: #000000;
+      margin-bottom: 20px;
+      font-size: 22px;
+    }
     </style>
 </head>
 <body>
@@ -661,16 +842,22 @@
                     <span>Controle de Présence</span>
                 </button>
                 <div class="sub-nav" id="customers-subnav">
+
+                    <a href="https://aroma-rh.github.io/SAISIEGP/">
+                        <button class="nav-item">
+                            <span>POINTAGE </span>
+                        </button>
+                        
+                    </a>
+
                 <a href="https://aroma-rh.github.io/POINTAGE-F20/">
                     <button class="nav-item">
-                        <span>POINTAGE</span>
+                        <span>EFFECTIF </span>
                     </button>
+                    
                 </a>
-                <a href="https://aroma-rh.github.io/EF20EE/">
-                    <button class="nav-item">
-                        <span>EFFECTIF</span>
-                    </button>
-                </a>
+                
+               
                 </div>
                 <button class="nav-item" id="deals-toggle">
                     <i data-lucide="dollar-sign"></i>
@@ -703,16 +890,12 @@
                     <span>Gestion de Présence</span>
                 </button>
                 <div class="sub-nav" id="customers-subnav1">
-                <a href="https://aroma-rh.github.io/F20POINTAGE/">
+                <a href="https://aroma-rh.github.io/pointageglobal/">
                     <button class="nav-item">
-                        <span>POINTAGE</span>
+                        <span>POINTAGE F01</span>
                     </button>
                 </a>
-                <a href="https://aroma-rh.github.io/F20GFHFGHGFHGFHHGFH/">
-                    <button class="nav-item">
-                        <span>EFFECTIF</span>
-                    </button>
-                </a>
+                
                 </div>
                 <a href="https://aroma-rh.github.io/LA-ABSE/">
                     <button class="nav-item">
@@ -732,21 +915,18 @@
             </button>
             <div class="sub-nav" id="customers-subnav2">
             
-            <a href="https://aroma-rh.github.io/tache-equipe/">
+            <a href="https://aroma-rh.github.io/PHISTORY/">
                 <button class="nav-item">
-                    <span>Ajouter Equipe/Tache</span>
+                    <span>Historique de oointage</span>
                 </button>
             </a>
-            <a href="https://aroma-rh.github.io/MINI-BUS/">
+            <a href="https://aroma-rh.github.io/statics/">
                 <button class="nav-item">
-                    <span>Effectif mini bus</span>
+                    <span>Autre informations</span>
                 </button>
             </a>
-                <a href="https://aroma-rh.github.io/CALCULATOR/">
-                <button class="nav-item">
-                    <span>Calculatrice</span>
-                </button>
-            </a>
+                
+            
             </div>
             </nav>
         </aside>
@@ -764,6 +944,7 @@
                             <span class="stats-title">Total des travailleurs</span>
                         </div>
                         <div class="stats-value" id="totalEmployees">0</div>
+                        <button onclick="showFarmCounts()" class="question-mark1">?</button>
                     </div>
                     
                     <div class="stats-card">
@@ -781,7 +962,7 @@
                         <div class="stats-value" id="missingContract">0</div>
                         <button id="show-missing-btn" class="question-mark">?</button>
                     </div>
-                    <div id="missing-names-modal" class="modal" style="display: none;">
+                    <div id="missing-names-modal" class="modal">
                         <div class="modal-content" >
                             <span class="close-btn">&times;</span>
                             <h3>Liste non pointes</h3>
@@ -789,41 +970,109 @@
                         </div>
                     </div>
                     
-                    <div class="stats-card">
+                    <div class="stats-card" >
                         <div class="stats-header">
                             <span class="stats-title">Manque de Contrat</span>
                             <div class="stats-percentage" id="nonContractPercentage">0%</div>
                         </div>
                         <div class="stats-value" id="nonEmptyColumn7">0</div>
-                        
+                        <button id="show-missing-btna" class="question-mark">?</button>
+                    </div>
+                    <div id="missing-names-modala" class="modalaa">
+                        <div class="modal-contentaa" >
+                            <span class="close-btna">&times;</span>
+                            <h3>Liste Manque de Contrat</h3>
+                            <ul id="missing-names-lista"></ul>
+                        </div>
                     </div>
                     
-
-                    
-                
                     <div class="stats-card">
                         <div class="stats-header">
                             <span class="stats-title">Total Equipes</span>
                         </div>
                         <div class="stats-value" id="totalEquipe">0</div>
+                       
                     </div>
-                    <div class="stats-card">
+                    <div class="stats-card" >
                         <div class="stats-header">
                             <span class="stats-title">Total taches</span>
                         </div>
                         <div class="stats-value" id="totaltache">0</div>
                     </div>
-                    <button class="statsbtn"  onclick="showStatistics()">Statistique des contrats </button>
+                    <button class="statsbtn" onclick="showStatistics()">Statistique des contrats </button>
                     <button class="statsbtn"  onclick="showStatisticsjJ()">Statistique des transport </button>
                     
                 </div>
 
                 <!-- Tables Section -->
                 <div class="tables-section">
+                    
+          
+          
                     <div class="data-table">
-                        <div class="table-header">
-                            <h2>SUIVI DE EFFECTIF</h2>
-                            <input type="text" id="searchInput" onkeyup="searchTableeffectif()" placeholder="Rechercher ici .....">
+                        <div class="table-header" >
+                            <h2 >SUIVI DE PONTAGE</h2>
+                            <input 
+                       type="text" 
+                       id="searchInput1" 
+                       class="search-input" 
+                       value="FINCA "
+                       placeholder="Rechercher des fermes (e.g., FINCA 1)"
+                       oninput="searchTablepointage()"
+                             >
+                        <input 
+                        type="text" 
+                        id="searchInput12" 
+                        class="search-input" 
+                        placeholder="Rechercher ICI"
+                        oninput="searchTablepointage1()"
+                        >
+                            <button id="download-btn1">
+                                <i class="fas fa-download"></i>
+                            </button><button class="EFFEC" onclick="clearSheet()"> supprimer</button>
+                        </div>
+                        <div class="table-container">
+                            <table border="1">
+                                <thead>
+                                    <tr>
+                                        <th>ID</th>
+                                        <th>NOME</th>
+                                        <th>EQUIPE</th>
+                                        <th>RHH</th>
+                                        <th>DATE</th>
+                                        <th>FINCA</th>
+                                        <th>SITUATION</th>
+                                        <th>S CONTRAT</th>
+                                        <th>CONTRAT</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="table-body">
+                                    <!-- pointage -->
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    
+
+                    <div class="data-table1">
+                        <div class="table-header" >
+                            <h2>SUIVI DE EFFECTIF </h2>
+                            
+                            <input 
+                       type="text" 
+                       id="searchInput" 
+                       class="search-input" 
+                       value="FINCA "
+                       placeholder="Rechercher des fermes (e.g., FINCA 1)"
+                       oninput="searchTableeffectif()"
+                             >
+                        <input 
+                        type="text" 
+                        id="searchInput2" 
+                        class="search-input" 
+                        placeholder="Rechercher ICI"
+                        oninput="searchTableeffectif1()"
+                        >
                             <button id="download-btn">
                                 <i class="fas fa-download"></i>
                             </button>
@@ -831,7 +1080,7 @@
                         
                         
 
-                        <div class="table-container">
+                        <div class="table-container" >
                             <table border="1">
                                 <thead>
                                     <tr>
@@ -850,47 +1099,82 @@
                             
                         </div>
                     </div>
-          
-          
-                    <div class="data-table">
-                        <div class="table-header">
-                            <h2>SUIVI DE PONTAGE</h2>
-                            <input type="text" id="searchInput1" onkeyup="searchTablepointage()" placeholder="Rechercher ici ....." />
-                            <button id="download-btn1">
-                                <i class="fas fa-download"></i>
-                            </button>
-                        </div>
-                        <div class="table-container">
-                            <table border="1">
-                                <thead>
-                                    <tr>
-                                        <th>ID</th>
-                                        <th>NOME</th>
-                                        <th>EQUIPE</th>
-                                        <th>RHH</th>
-                                        <th>DATE</th>
-                                        <th>FINCA</th>
-                                        <th>SITUATION</th>
-                                        <th>CONTRACT</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="table-body">
-                                    <!-- pointage -->
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                    
                 </div>
             </div>
         </main>
     </div>
-
+    <div id="resultModal" class="modal1">
+        <div class="modal-content1">
+          <span class="close-btn" onclick="closeModal()">&times;</span>
+          <h3>Nombre de travailleurs dans chaque ferme :</h3>
+          <div id="modalResult"></div>
+        </div>
+      </div>
+      
     <!-- Overlay for mobile sidebar -->
     <div class="overlay" onclick="toggleSidebar()"></div>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.17.0/xlsx.full.min.js"></script>
 
     <script>
+
+
+
+
+
+function toggleGood() {
+    const elements = document.getElementsByClassName("data-table1");
+    for (let i = 0; i < elements.length; i++) {
+        const el = elements[i];
+
+       
+        if (el.style.display === "none" || el.style.display === "") {
+            el.style.display = "block";  
+        } else {
+            el.style.display = "none";   
+        }
+    }
+}
+
+
+
+
+
+   function showFarmCounts() {
+      const table = document.getElementById("table-body");
+      const rows = table.querySelectorAll("tbody tr");
+      const farmCount = {};
+
+      rows.forEach(row => {
+        const farm = row.cells[5].textContent.trim();
+        farmCount[farm] = (farmCount[farm] || 0) + 1;
+      });
+
+      const resultDiv = document.getElementById("modalResult");
+      resultDiv.innerHTML = "";
+
+      // Sort farm names A-Z
+      const sortedFarms = Object.keys(farmCount).sort();
+
+      sortedFarms.forEach(farm => {
+        const div = document.createElement("div");
+        div.className = "farm-row";
+        div.innerHTML = `<span>${farm}</span> >>>>       <span style="text-align: right;">${farmCount[farm]} travailleurs</span>`;
+        resultDiv.appendChild(div);
+      });
+
+      document.getElementById("resultModal").style.display = "flex";
+    }
+
+    function closeModal() {
+      document.getElementById("resultModal").style.display = "none";
+    }
+
+    window.onclick = function(event) {
+      const modal = document.getElementById("resultModal");
+      if (event.target === modal) {
+        modal.style.display = "none";
+      }
+    }
 document.getElementById('customers-toggle').addEventListener('click', function() {
             const subNav = document.getElementById('customers-subnav');
             subNav.style.display = subNav.style.display === 'block' ? 'none' : 'block';
@@ -926,73 +1210,147 @@ document.getElementById('customers-toggle').addEventListener('click', function()
                 }
             });
         });
+        function searchTablepointage1() {
+let input = document.getElementById("searchInput12");
+let filter = input.value.toLowerCase();
+let table = document.getElementById("table-body");
+let tr = table.getElementsByTagName("tr");
 
+let visibleRows = 0;
+let totalHours = 0;
+let missingContractCount = 0;
+let nonEmptyColumn7Count = 0;
+let uniqueGroups = new Set();
 
-        function searchTablepointage() {
-    let input = document.getElementById("searchInput1");
-    let filter = input.value.toLowerCase();
-    let table = document.getElementById("table-body");
-    let tr = table.getElementsByTagName("tr");
+for (let i = 0; i < tr.length; i++) {
+    let td = tr[i].getElementsByTagName("td");
+    let rowContainsFilter = false;
 
-    let visibleRows = 0;
-    let totalHours = 0;
-    let missingContractCount = 0;
-    let nonEmptyColumn7Count = 0;
-    let uniqueGroups = new Set();
-
-    for (let i = 0; i < tr.length; i++) {
-        let td = tr[i].getElementsByTagName("td");
-        let rowContainsFilter = false;
-
-        for (let j = 0; j < td.length; j++) {
-            if (td[j].textContent.toLowerCase().includes(filter)) {
-                rowContainsFilter = true;
-                break;
-            }
-        }
-
-        if (rowContainsFilter) {
-            tr[i].style.display = "";
-            visibleRows++;
-
-            const value = parseFloat(td[3].textContent); 
-            if (!isNaN(value)) {
-                totalHours += value;
-            }
-
-            if (td[6] && td[6].textContent.trim() !== '') {
-                missingContractCount++;
-            }
-
-            if (td[7] && td[7].textContent.trim() !== '') {
-                nonEmptyColumn7Count++;
-            }
-
-           
-            if (td[2] && td[2].textContent.trim() !== "") {
-                uniqueGroups.add(td[2].textContent.trim());
-            }
-        } else {
-            tr[i].style.display = "none";
+    for (let j = 0; j < td.length; j++) {
+        if (td[j].textContent.toLowerCase().includes(filter)) {
+            rowContainsFilter = true;
+            break;
         }
     }
 
-    // Update statistics
-    document.getElementById("totalEmployees").textContent = visibleRows;
-    document.getElementById("totalHours").textContent = totalHours.toFixed(2);
+    if (rowContainsFilter) {
+        tr[i].style.display = "";
+        visibleRows++;
 
-    let missingContractPercentage = (missingContractCount / visibleRows) * 100;
-    if (isNaN(missingContractPercentage)) missingContractPercentage = 0;
-    document.getElementById("missingContract").textContent = missingContractCount;
-    document.getElementById("missingContractPercentage").textContent = missingContractPercentage.toFixed(2) + '%';
+        const value = parseFloat(td[3].textContent); 
+        if (!isNaN(value)) {
+            totalHours += value;
+        }
 
-    let nonEmptyColumn7Percentage = (nonEmptyColumn7Count / visibleRows) * 100;
-    if (isNaN(nonEmptyColumn7Percentage)) nonEmptyColumn7Percentage = 0;
-    document.getElementById("nonEmptyColumn7").textContent = nonEmptyColumn7Count;
-    document.getElementById("nonContractPercentage").textContent = nonEmptyColumn7Percentage.toFixed(2) + '%';
+        if (td[6] && td[6].textContent.trim() !== '') {
+            missingContractCount++;
+        }
 
-    document.getElementById("totalEquipe").textContent = uniqueGroups.size;
+        if (td[7] && td[7].textContent.trim() !== '') {
+            nonEmptyColumn7Count++;
+        }
+
+       
+        if (td[2] && td[2].textContent.trim() !== "") {
+            uniqueGroups.add(td[2].textContent.trim());
+        }
+    } else {
+        tr[i].style.display = "none";
+    }
 }
+
+// Update statistics
+document.getElementById("totalEmployees").textContent = visibleRows;
+document.getElementById("totalHours").textContent = totalHours.toFixed(2);
+
+let missingContractPercentage = (missingContractCount / visibleRows) * 100;
+if (isNaN(missingContractPercentage)) missingContractPercentage = 0;
+document.getElementById("missingContract").textContent = missingContractCount;
+document.getElementById("missingContractPercentage").textContent = missingContractPercentage.toFixed(2) + '%';
+
+let nonEmptyColumn7Percentage = (nonEmptyColumn7Count / visibleRows) * 100;
+if (isNaN(nonEmptyColumn7Percentage)) nonEmptyColumn7Percentage = 0;
+document.getElementById("nonEmptyColumn7").textContent = nonEmptyColumn7Count;
+document.getElementById("nonContractPercentage").textContent = nonEmptyColumn7Percentage.toFixed(2) + '%';
+
+document.getElementById("totalEquipe").textContent = uniqueGroups.size;
+}
+        function searchTablepointage() {
+            let input = document.getElementById("searchInput1");
+            let filter = input.value.toLowerCase();
+            let table = document.getElementById("table-body");
+            let tr = table.getElementsByTagName("tr");
+
+            let visibleRows = 0;
+            let totalHours = 0;
+            let missingContractCount = 0;
+            let nonEmptyColumn7Count = 0;
+            let uniqueGroups = new Set();
+
+            for (let i = 0; i < tr.length; i++) {
+                let td = tr[i].getElementsByTagName("td");
+                let rowContainsFilter = false;
+
+                for (let j = 0; j < td.length; j++) {
+                    let cellText = td[j].textContent || "";
+                    
+                    // Special handling for farm names
+                    if (cellText.toLowerCase().includes("finca")) {
+                        // Exact match for farm names
+                        if (cellText.toLowerCase() === filter) {
+                            rowContainsFilter = true;
+                            break;
+                        }
+                    } else {
+                        // Normal partial match for other columns
+                        if (cellText.toLowerCase().includes(filter)) {
+                            rowContainsFilter = true;
+                            break;
+                        }
+                    }
+                }
+
+                if (rowContainsFilter || filter === '') {
+                    tr[i].style.display = "";
+                    visibleRows++;
+
+                    const value = parseFloat(td[3].textContent || "0"); 
+                    if (!isNaN(value)) {
+                        totalHours += value;
+                    }
+
+                    if (td[6] && td[6].textContent.trim() !== '') {
+                        missingContractCount++;
+                    }
+
+                    if (td[7] && td[7].textContent.trim() !== '') {
+                        nonEmptyColumn7Count++;
+                    }
+                   
+                    if (td[2] && td[2].textContent.trim() !== "") {
+                        uniqueGroups.add(td[2].textContent.trim());
+                    }
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+
+            // Update statistics
+            document.getElementById("totalEmployees").textContent = visibleRows;
+            document.getElementById("totalHours").textContent = totalHours.toFixed(2);
+
+            let missingContractPercentage = (missingContractCount / visibleRows) * 100;
+            if (isNaN(missingContractPercentage)) missingContractPercentage = 0;
+            document.getElementById("missingContract").textContent = missingContractCount;
+            document.getElementById("missingContractPercentage").textContent = missingContractPercentage.toFixed(2) + '%';
+
+            let nonEmptyColumn7Percentage = (nonEmptyColumn7Count / visibleRows) * 100;
+            if (isNaN(nonEmptyColumn7Percentage)) nonEmptyColumn7Percentage = 0;
+            document.getElementById("nonEmptyColumn7").textContent = nonEmptyColumn7Count;
+            document.getElementById("nonContractPercentage").textContent = nonEmptyColumn7Percentage.toFixed(2) + '%';
+
+            document.getElementById("totalEquipe").textContent = uniqueGroups.size;
+        }
 
 
 function searchTableeffectif() {
@@ -1009,6 +1367,37 @@ function searchTableeffectif() {
             if (td[j].textContent.toLowerCase().includes(filter)) {
                 rowContainsFilter = true;
                 break;
+            }
+        }
+
+        tr[i].style.display = rowContainsFilter ? "" : "none";
+    }
+}
+function searchTableeffectif1() {
+    const input = document.getElementById("searchInput2");
+    const filter = input.value.toLowerCase().trim();
+    const table = document.getElementById("table-body2");
+    const tr = table.getElementsByTagName("tr");
+
+    for (let i = 0; i < tr.length; i++) {
+        const td = tr[i].getElementsByTagName("td");
+        let rowContainsFilter = false;
+
+        for (let j = 0; j < td.length; j++) {
+            const cellText = td[j].textContent.toLowerCase().trim();
+
+            // إذا كانت الكلمة تحتوي على "finca" نستخدم مطابقة تامة
+            if (cellText.includes("finca")) {
+                if (cellText === filter) {
+                    rowContainsFilter = true;
+                    break;
+                }
+            } else {
+                // غير ذلك نستخدم المطابقة الجزئية العادية
+                if (cellText.includes(filter)) {
+                    rowContainsFilter = true;
+                    break;
+                }
             }
         }
 
@@ -1035,7 +1424,7 @@ function searchTableeffectif() {
         const missingContractPercentageElement = document.getElementById('missingContractPercentage');
         const nonContractPercentageElement = document.getElementById('nonContractPercentage');
         const missingNamesButton = document.getElementById('show-missing-btn');
-        
+        const missingNamesButtona = document.getElementById('show-missing-btna');
         tableBody.innerHTML = '';
         let employeeCount = 0;
         let totalHours = 0;
@@ -1046,86 +1435,86 @@ function searchTableeffectif() {
 
         const filteredData = data
 
-        filteredData.slice(1).forEach(row => {
-            if (row.some(cell => cell && typeof cell === 'string' && cell.trim() !== "")) {
-                let tr = document.createElement('tr');
+  filteredData.slice(1).forEach((row, index) => {
+    if (row.some(cell => cell && typeof cell === 'string' && cell.trim() !== "")) {
+        let tr = document.createElement('tr');
 
-                
+        if (index === 0) {
+            tr.style.display = 'none'; 
+        }
 
-                
+        row.forEach((cell, index) => {
+            let td = document.createElement('td');
 
-                row.forEach((cell, index) => {
-                    let td = document.createElement('td');
- 
-                    if (index === 4 && cell) {
-                        td.textContent = formatDate(cell); 
-                    } else {
-                        td.textContent = cell || ''; 
-                    }
-                    
-                    if (index === 7 && cell && cell.trim() === 'NON') {
-                        let button = document.createElement('button');
-                        button.textContent = '?';
-
-                       
-                        button.style.marginLeft = '10px';
-                        button.style.cursor = 'pointer';
-                        button.style.width = '30px';
-                        button.style.height = '30px';
-                        button.style.borderRadius = '50%';
-                        button.style.border = 'none';
-                        button.style.backgroundColor = '#FF5733'; 
-                        button.style.color = 'white';
-                        button.style.fontSize = '16px';
-                        button.style.fontWeight = 'bold';
-                        button.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-                        button.style.transition = 'all 0.3s ease';
-
-                        button.addEventListener('mouseenter', () => {
-                            button.style.backgroundColor = '#C70039'; 
-                            button.style.boxShadow = '0 6px 8px rgba(0, 0, 0, 0.15)';
-                        });
-
-                        button.addEventListener('mouseleave', () => {
-                            button.style.backgroundColor = '#FF5733';
-                            button.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
-                        });
-
-                        button.addEventListener('click', function() {
-                            fetchCommentFromGoogleSheets(row[0], td);
-                        });
-
-                        td.appendChild(button);
-                    }
-
-                    tr.appendChild(td);
-                });
-                tableBody.appendChild(tr);
-                employeeCount++;
-
-                const value = parseFloat(row[3]);
-                if (!isNaN(value)) {
-                    totalHours += value;
-                }
-
-                if (row[6] && row[6].trim() !== '') {
-                    missingContractCount++;
-                }
-
-                if (row[7] && row[7].trim() !== '') {
-                    nonEmptyColumn7Count++;
-                }
-
-                if (row[2] && row[2].trim() !== "") {
-                    uniqueGroups.add(row[2]);
-                }
-
-                if (!row[6] || row[6].trim() === '') {
-   
-    missingNames.push({ name: row[1], finca: row[5],equipe: row[2],code: row[0] });
-}
+            if (index === 4 && cell) {
+                td.textContent = formatDate(cell); 
+            } else {
+                td.textContent = cell || ''; 
             }
+
+            if (index === 7 && cell && cell.trim() === 'NON') {
+                let button = document.createElement('button');
+                button.textContent = '?';
+                button.style.marginLeft = '10px';
+                button.style.cursor = 'pointer';
+                button.style.width = '30px';
+                button.style.height = '30px';
+                button.style.borderRadius = '50%';
+                button.style.border = 'none';
+                button.style.backgroundColor = '#FF5733'; 
+                button.style.color = 'white';
+                button.style.fontSize = '16px';
+                button.style.fontWeight = 'bold';
+                button.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                button.style.transition = 'all 0.3s ease';
+
+                button.addEventListener('mouseenter', () => {
+                    button.style.backgroundColor = '#C70039'; 
+                    button.style.boxShadow = '0 6px 8px rgba(0, 0, 0, 0.15)';
+                });
+
+                button.addEventListener('mouseleave', () => {
+                    button.style.backgroundColor = '#FF5733';
+                    button.style.boxShadow = '0 4px 6px rgba(0, 0, 0, 0.1)';
+                });
+
+                button.addEventListener('click', function() {
+                    fetchCommentFromGoogleSheets(row[0], td);
+                });
+
+                td.appendChild(button);
+            }
+
+            tr.appendChild(td);
         });
+
+        tableBody.appendChild(tr);
+        employeeCount++;
+
+        const value = parseFloat(row[3]);
+        if (!isNaN(value)) {
+            totalHours += value;
+        }
+
+        if (row[6] && row[6].trim() !== '') {
+            missingContractCount++;
+        }
+
+        if (row[7] && row[7].trim() !== '') {
+            nonEmptyColumn7Count++;
+        }
+
+        if (row[2] && row[2].trim() !== "") {
+            uniqueGroups.add(row[2]);
+        }
+
+        if (!row[6] || row[6].trim() === '') {
+            missingNames.push({ name: row[1], finca: row[5], equipe: row[2], code: row[0], CONTRAT: row[8] });
+        }
+    }
+});
+
+
 
         if (totalEmployeesElement) totalEmployeesElement.textContent = employeeCount;
         if (totalHoursElement) totalHoursElement.textContent = totalHours;
@@ -1142,6 +1531,12 @@ function searchTableeffectif() {
         if (missingNamesButton) {
             missingNamesButton.addEventListener('click', function () {
                 updateModal(missingNames);
+            });
+        }
+
+        if (missingNamesButtona) {
+            missingNamesButtona.addEventListener('click', function () {
+                updateModala(missingNames);
             });
         }
         
@@ -1187,6 +1582,70 @@ function searchTableeffectif() {
 
     sendButton.addEventListener('click', function () {
         sendGroupedImages(names);
+    });
+
+
+    let closeButton = document.createElement('button');
+    closeButton.textContent = 'Annuler';
+    closeButton.style.padding = '10px 15px';
+    closeButton.style.backgroundColor = '#ff4d4d';
+    closeButton.style.color = 'white';
+    closeButton.style.border = 'none';
+    closeButton.style.borderRadius = '5px';
+    closeButton.style.cursor = 'pointer';
+    closeButton.style.marginTop = '15px';
+    closeButton.style.marginLeft = '15px';
+    closeButton.style.marginRight = '15px';
+    closeButton.style.width = '45%';
+
+    closeButton.addEventListener('click', function () {
+        modal.style.display = 'none';
+    });
+
+
+    modalContent.appendChild(sendButton);
+    modalContent.appendChild(closeButton);
+
+    modal.style.display = 'block';
+}
+function updateModala(names) {
+    let namesList = document.getElementById('missing-names-lista');
+    namesList.innerHTML = '';
+
+    if (names.length > 0) {
+        names.forEach(nameObj => {
+            let li = document.createElement('li');
+            li.textContent = `${nameObj.code} ${nameObj.name} >>${nameObj.CONTRAT} :  ${nameObj.finca}  `;
+            namesList.appendChild(li);
+        });
+    } else {
+        let li = document.createElement('li');
+        li.textContent = 'Rien';
+        namesList.appendChild(li);
+    }
+
+  
+    let modal = document.getElementById('missing-names-modala');
+    let modalContent = modal.querySelector('.modal-contentaa');
+
+    
+    let oldButtons = modalContent.querySelectorAll('button');
+    oldButtons.forEach(button => button.remove());
+
+   
+    let sendButton = document.createElement('button');
+    sendButton.textContent = 'Envoyer';
+    sendButton.style.padding = '10px 15px';
+    sendButton.style.backgroundColor = 'rgb(14 69 62)';
+    sendButton.style.color = 'white';
+    sendButton.style.border = 'none';
+    sendButton.style.borderRadius = '5px';
+    sendButton.style.cursor = 'pointer';
+    sendButton.style.marginTop = '15px';
+    sendButton.style.width = '45%';
+
+    sendButton.addEventListener('click', function () {
+        sendGroupedImagesW(names);
     });
 
 
@@ -1350,8 +1809,147 @@ function sendBatches(tasks, batchSize, delay) {
     sendNextBatch();
 }
 
+
+function sendGroupedImagesW(names) {
+    const fincaGroups = {
+        'FINCA 1': '-4772601946',
+        'FINCA 2': '-4741071638',
+        'FINCA 3': '-4762800907',
+        'FINCA 4': '-4742545791',
+        'FINCA 5': '-4742867146',
+        'FINCA 6': '-4686579199',
+        'FINCA 8': '-4789819208',
+        'FINCA 9': '-4696600735',
+        'FINCA 13': '-4735933696',
+        'FINCA 19': '-4754061005',
+        'FINCA 20': '-4651464309',
+        'FINCA 21': '-4742867146',
+        'FINCA 22': '-4706800234',
+    };
+
+    let fincaEquipes = {};
+
+  
+    names.forEach(({ finca, equipe, code, name, CONTRAT }) => {
+        if (!fincaEquipes[finca]) fincaEquipes[finca] = {};
+        if (!fincaEquipes[finca][equipe]) fincaEquipes[finca][equipe] = [];
+        fincaEquipes[finca][equipe].push(`${code} - ${name} - ${CONTRAT}`);
+    });
+
+    let allPromises = [];
+    
+    Object.keys(fincaEquipes).forEach(finca => {
+        let chatId = fincaGroups[finca];
+        if (chatId) {
+            Object.keys(fincaEquipes[finca]).forEach(equipe => {
+                let members = fincaEquipes[finca][equipe];
+                allPromises.push(() =>
+                    createImageW(finca, equipe, members)
+                        .then(imageBlob => sendImageToTelegramW(chatId, imageBlob, `${finca}_${equipe}.png`))
+                        .catch(error => console.error('❌ Erreur lors de la création de image :', error))
+                );
+            });
+        }
+    });
+
+
+    sendBatchesW(allPromises, 10, 3000);
+}
+
+
+function createImageW(finca, equipe, members) {
+    return new Promise((resolve, reject) => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+
+        const width = 500;
+        const height = 100 + members.length * 30;
+        canvas.width = width;
+        canvas.height = height;
+
+        ctx.fillStyle = 'white';
+        ctx.fillRect(0, 0, width, height);
+
+        ctx.fillStyle = 'black';
+        ctx.font = 'bold 20px Arial';
+        ctx.fillText(`${finca} - ${equipe}`, 20, 30);
+
+        ctx.font = '16px Arial';
+        members.forEach((member, index) => {
+            ctx.fillText(member, 20, 60 + index * 30);
+        });
+
+        canvas.toBlob(blob => {
+            if (blob) {
+                resolve(blob);
+            } else {
+                reject('Erreur lors de la conversion de l image en Blob');
+            }
+        });
+    });
+}
+
+
+function sendImageToTelegramW(chatId, imageBlob, filename, attempt = 1) {
+    const token = '7705838883:AAGuC6SB6IF5b08WsewMWnwZ99UoNAC58ZI';
+    const MAX_ATTEMPTS = 5;
+
+    let formData = new FormData();
+    formData.append('chat_id', chatId);
+    formData.append('photo', imageBlob, filename);
+
+    return fetch(`https://api.telegram.org/bot${token}/sendPhoto`, {
+        method: 'POST',
+        body: formData,
+    })
+    .then(response => response.json())
+    .then(data => {
+        if (data.ok) {
+            console.log(`✅ Image envoyée : ${filename}`);
+        } else if (data.error_code === 429 && attempt <= MAX_ATTEMPTS) {
+            const retryAfter = data.parameters.retry_after || 40;
+            console.warn(`⏳ Trop de requêtes. Reessayer dans ${retryAfter} secondes (tentative ${attempt}/${MAX_ATTEMPTS})`);
+            return new Promise(resolve => setTimeout(resolve, retryAfter * 1000))
+                .then(() => sendImageToTelegramW(chatId, imageBlob, filename, attempt + 1));
+        } else {
+            console.error(`❌ Erreur lors de l'envoi de l'image : ${filename}`, data);
+        }
+    })
+    .catch(error => {
+        console.error(`⚠️ Erreur réseau pour ${filename} :`, error);
+    });
+}
+function sendBatchesW(tasks, batchSize, delayBetweenImages = 1000, delayBetweenBatches = 5000) {
+    let index = 0;
+
+    async function sendNextBatchW() {
+        if (index >= tasks.length) {
+            console.log('✅ Tous les envois sont terminés !');
+            return;
+        }
+
+        let batch = tasks.slice(index, index + batchSize);
+        index += batchSize;
+
+        for (let i = 0; i < batch.length; i++) {
+            await batch[i]();
+            await new Promise(resolve => setTimeout(resolve, delayBetweenImages));
+        }
+
+        console.log(`📦 Batch envoyé (${index}/${tasks.length})`);
+
+        setTimeout(sendNextBatchW, delayBetweenBatches);
+    }
+
+    sendNextBatchW();
+}
+
+
     document.querySelector('.close-btn').addEventListener('click', function () {
         document.getElementById('missing-names-modal').style.display = 'none';
+    });
+    document.querySelector('.close-btna').addEventListener('click', function () {
+        document.getElementById('missing-names-modala').style.display = 'none';
     });
 
     function fetchData() {
@@ -1620,12 +2218,21 @@ function showStatisticsjJ() {
 
     if (emptyCount > 0) {
         let percentageEmpty = ((emptyCount / randomTotalWorkers) * 100).toFixed(2);
-        message1 += `🔴 Other : ${emptyCount} prs (${percentageEmpty}%)\n`;
+        message1 += `🔴 Autre : ${emptyCount} prs (${percentageEmpty}%)\n`;
     }
 
     alert(message1);
 }
 
+function clearSheet() {
+    const password = prompt("Veuillez saisir votre mot de passe pour effacer les données :");
+      if (!password) return;
+
+      fetch("https://script.google.com/macros/s/AKfycbwt1_-CpAjoh37nb5OhMzHanRlCmITJ924CctrDpypU9CCcAXOKZ3CByNT7bOvrRmBiLA/exec?password=" + encodeURIComponent(password))
+        .then(res => res.text())
+        .then(data => alert(data))
+        
+    }
 
 window.addEventListener("load", () => {
     fetchData(); 
