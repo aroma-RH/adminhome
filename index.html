@@ -810,7 +810,7 @@
       border-radius: 15px;
       position: relative;
       box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-      max-height: 50vh;
+      max-height: 80%;
       overflow-y: auto;
     }
 
@@ -952,6 +952,7 @@
                             <span class="stats-title">Total Heures</span>
                         </div>
                         <div class="stats-value" id="totalHours">0</div>
+                        <button onclick="showFarmCountsH()" class="question-mark1">?</button>
                     </div>
                     
                     <div class="stats-card">
@@ -991,13 +992,14 @@
                             <span class="stats-title">Total Equipes</span>
                         </div>
                         <div class="stats-value" id="totalEquipe">0</div>
-                       
+                        <button onclick="showFarmCountsA()" class="question-mark1">?</button>
                     </div>
                     <div class="stats-card" >
                         <div class="stats-header">
                             <span class="stats-title">Total taches</span>
                         </div>
                         <div class="stats-value" id="totaltache">0</div>
+                        <button onclick="showFarmCountsT()" class="question-mark1">?</button>
                     </div>
                     <button class="statsbtn" onclick="showStatistics()">Statistique des contrats </button>
                     <button class="statsbtn"  onclick="showStatisticsjJ()">Statistique des transport </button>
@@ -1110,6 +1112,31 @@
           <div id="modalResult"></div>
         </div>
       </div>
+
+      
+    <div id="resultModalA" class="modal1">
+        <div class="modal-content1">
+          <span class="close-btn" onclick="closeModalA()">&times;</span>
+          <h3>Nombre de travailleurs dans chaque ferme :</h3>
+          <div id="modalResultA"></div>
+        </div>
+      </div>
+
+      <div id="resultModalT" class="modal1">
+        <div class="modal-content1">
+          <span class="close-btn" onclick="closeModalT()">&times;</span>
+          <h3>Nombre de travailleurs dans chaque Tache :</h3>
+          <div id="modalResultT"></div>
+        </div>
+      </div>
+
+      <div id="resultModalH" class="modal1">
+        <div class="modal-content1">
+          <span class="close-btn" onclick="closeModalH()">&times;</span>
+          <h3>Total des Heures Travaillées par Equipe :</h3>
+          <div id="modalResultH"></div>
+        </div>
+      </div>
       
     <!-- Overlay for mobile sidebar -->
     <div class="overlay" onclick="toggleSidebar()"></div>
@@ -1165,8 +1192,100 @@ function toggleGood() {
       document.getElementById("resultModal").style.display = "flex";
     }
 
+    function showFarmCountsA() {
+      const table = document.getElementById("table-body");
+      const rows = table.querySelectorAll("tbody tr");
+      const farmCount = {};
+
+      rows.forEach(row => {
+        const farm = row.cells[2].textContent.trim();
+        farmCount[farm] = (farmCount[farm] || 0) + 1;
+      });
+
+      const resultDiv = document.getElementById("modalResultA");
+      resultDiv.innerHTML = "";
+
+      // Sort farm names A-Z
+      const sortedFarms = Object.keys(farmCount).sort();
+
+      sortedFarms.forEach(farm => {
+        const div = document.createElement("div");
+        div.className = "farm-row";
+        div.innerHTML = `<span>${farm}</span> >>>>       <span style="text-align: right;">${farmCount[farm]} travailleurs</span>`;
+        resultDiv.appendChild(div);
+      });
+
+      document.getElementById("resultModalA").style.display = "flex";
+    }
+
+    function showFarmCountsT() {
+      const table = document.getElementById("table-body2");
+      const rows = table.querySelectorAll("tbody tr");
+      const farmCount = {};
+
+      rows.forEach(row => {
+        const farm = row.cells[3].textContent.trim();
+        farmCount[farm] = (farmCount[farm] || 0) + 1;
+      });
+
+      const resultDiv = document.getElementById("modalResultT");
+      resultDiv.innerHTML = "";
+
+      // Sort farm names A-Z
+      const sortedFarms = Object.keys(farmCount).sort();
+
+      sortedFarms.forEach(farm => {
+        const div = document.createElement("div");
+        div.className = "farm-row";
+        div.innerHTML = `<span>${farm}</span> >>>>       <span>>>${farmCount[farm]} prs</span>`;
+        resultDiv.appendChild(div);
+      });
+
+      document.getElementById("resultModalT").style.display = "flex";
+    }
+
+    function showFarmCountsH() {
+  const table = document.getElementById("table-body");
+  const rows = table.querySelectorAll("tbody tr");
+  const farmHours = {};
+
+  rows.forEach(row => {
+    const farm = row.cells[2].textContent.trim(); // column 2 = farm
+    const hoursText = row.cells[3].textContent.trim(); // column 3 = hours
+    const hours = parseFloat(hoursText) || 0; // نحول النص لرقم
+
+    farmHours[farm] = (farmHours[farm] || 0) + hours;
+  });
+
+  const resultDiv = document.getElementById("modalResultH");
+  resultDiv.innerHTML = "";
+
+  const sortedFarms = Object.keys(farmHours).sort();
+
+  sortedFarms.forEach(farm => {
+    const div = document.createElement("div");
+    div.className = "farm-row";
+    div.innerHTML = `<span>${farm}</span> >>>> <span>>>${farmHours[farm].toFixed(2)} hrs</span>`;
+    resultDiv.appendChild(div);
+  });
+
+  document.getElementById("resultModalH").style.display = "flex";
+}
+
+    
+    function closeModalH() {
+      document.getElementById("resultModalH").style.display = "none";
+    }
+
+    function closeModalA() {
+      document.getElementById("resultModalA").style.display = "none";
+    }
     function closeModal() {
       document.getElementById("resultModal").style.display = "none";
+    }
+
+    function closeModalT() {
+      document.getElementById("resultModalT").style.display = "none";
     }
 
     window.onclick = function(event) {
